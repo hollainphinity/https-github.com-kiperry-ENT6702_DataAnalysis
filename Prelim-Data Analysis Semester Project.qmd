@@ -1,0 +1,151 @@
+---
+title: "Prelim-Data Analysis Semester Project"
+author: "Olaitan Comfort Shekoni"
+format: html
+editor: visual
+---
+
+## Data Description
+
+The dataset used for this analysis is from the second study of my MSc. thesis titled “Evaluation of the Efficacy of Bovine Adenovirus-Vectored Avian Influenza Vaccine in Poultry,”. This study investigates how different mucosal vaccine routes influence protection against avian influenza. For this preliminary analysis, I used qPCR viral-load data **(Ct values and log10 genomic equivalents)** from tracheal swabs collected at three time points—2, 4, and 6 days post-challenge (DPC2, DPC4, DPC6)—in chickens that received a single dose of the BAdV-H5HA+H7NP vaccine (1x10^8^pfu) in a prime-booster dose vaccine administration via two routes—**intraocular (IO)** and **intramuscular (IM)**—and challenged with two avian influenza virus strains (**H5N1** and **H7N2**).
+
+Each Excel sheet corresponds to one **Virus × Timepoint** combination (e.g., DPC2-H5N1).\
+Key variables:
+
+-   **Vaccine_Group**: Mock, Mock Challenge, Empty-Vector, BAds-AIV
+-   **Route**: IM (intramuscular) or IO (intraocular)
+-   **Bird_ID**: unique sample identifier
+-   **Ct**: qPCR cycle threshold (continuous)
+-   **log10GE**: log₁₀ genome equivalents/mL (continuous)
+
+Since “Mock” birds were not challenged, they are excluded.\
+Data are nested: **Bird_IDs** are nested within **Vaccine_Group × Route** combinations, and each sheet (timepoint) is nested within each **Virus**.
+
+```{r}
+#LOADING LIBRARIES
+library(tidyverse)
+library(stringr)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readr)   # for parse_number()
+library(purrr)
+library(broom)
+library(multcomp) # for Tukey
+library(car)
+library(emmeans)
+library(multcompView)
+library(ggpubr)
+library(glm2)
+library(glmertree)
+library(glmmTMB)
+library(lme4)
+library(pscl)
+library(ZIM)
+library(TMB)
+library(bbmle)
+library(DHARMa)
+library(patchwork)
+```
+
+```{r}
+# Loading dataset
+# Importing my qPCR excel data file 
+excel_path <- path.expand("~/Desktop/Entomology tech-Fall 2025/ENT6907_qPCR/ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx")
+excel_path <- "ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx"
+
+ENT_Project_Tracheal_qPCR_Clean_xlsx_ <- read_excel("ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx")
+
+#qPCR data wrangling process
+excel_path
+#GETTING SHEET NAMES FROM THE CHOSEN FILE
+sheets <- readxl::excel_sheets(excel_path)
+#READING ALL SHEETS AND BINDING INTO ONE DATA FRAME
+qpcr <- purrr::map_dfr(sheets, ~ readxl::read_excel(excel_path, sheet = .x)) 
+dplyr::glimpse(qpcr)        #quick peek into the selected data
+# Checking counts per original sheet
+qpcr %>% count(Timepoint, Virus)
+
+```
+
+```{r}
+qpcr <- lapply(sheets, function(s) {
+  df <- read_excel(excel_path, sheet = s)
+  df$Sheet <- s
+  return(df)
+}) |> bind_rows()
+```
+
+```{r}
+# Clean and set factors
+qpcr <- qpcr %>%
+  filter(Vaccine_Group != "Mock") %>%
+  mutate(
+    Timepoint = factor(Timepoint, levels = c("DPC2","DPC4","DPC6")),
+    Virus = factor(Virus, levels = c("H5N1","H7N2")),
+    Vaccine_Group = factor(Vaccine_Group, levels = c("Mock Challenge","Empty-Vector","BAds-AIV")),
+    Route = factor(Route, levels = c("IM","IO")),
+    GroupRoute = interaction(Vaccine_Group, Route, sep = ":")
+  )
+
+glimpse(qpcr)
+```
+
+## Checking Normality (Distribution)
+
+Before model fitting, I checked whether **Ct** and **log10GE** are approximately normally distributed.
+
+```{r}
+# Example: visualize H7N2 DPC6 data only
+
+panel <- qpcr %>%
+  filter(Virus == "H7N2", Timepoint == "DPC6")
+
+# Histogram and QQ plot for Ct
+
+ggplot(panel, aes(x = Ct)) +
+  geom_histogram(bins = 20, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Ct values (H7N2 DPC6)", x = "Ct value", y = "Count") +
+  theme_minimal()
+
+ggplot(panel, aes(sample = Ct)) +
+  stat_qq() + stat_qq_line(color = "red") +
+  labs(title = "QQ-Plot of Ct values", x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_minimal()
+
+# Histogram and QQ plot for log10GE
+
+ggplot(panel, aes(x = log10GE)) +
+  geom_histogram(bins = 20, fill = "orange", color = "black") +
+  labs(title = "Distribution of log10GE (H7N2 DPC6)", x = "log10 GE/mL", y = "Count") +
+  theme_minimal()
+
+ggplot(panel, aes(sample = log10GE)) +
+  stat_qq() + stat_qq_line(color = "red") +
+  labs(title = "QQ-Plot of log10GE", x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  theme_minimal()
+
+```
+
+**Interpretation:**\
+
+The histograms show approximately continuous, right-skewed distributions—typical of qPCR data. log10GE values are closer to normal than raw Ct values but still slightly skewed.
+
+## Model Structure and Selection Rationale
+
+Data Nesting: Each measurement is **nested** as follows:
+
+**Nesting structure:** Bird_ID ⊂ (Vaccine_Group × Route) ⊂ Timepoint ⊂ Virus (i.e., multiple birds belong to each treatment group (combination of vaccine and route), within each virus and timepoint.
+
+**Example model formula (for next stage)**
+
+Continuous response (log10GE) \~ fixed effects (Vaccine_Group, Route) + random effects (Bird_ID nested within Timepoint). Not yet running this model; just specifying for rationale
+
+model_example \<- "lmer(log10GE \~ Vaccine_Group \* Route + (1 \| Timepoint/Bird_ID), data = qpcr)" model_example
+
+### Chosen Model
+
+Since my data contain repeated measurements of viral load (Ct and log10GE) across multiple timepoints, birds, and routes, a **nested or mixed-effects model** is appropriate.
+
+The hierarchical structure (*Bird_ID nested within Timepoint within Virus*) requires random effects to account for correlation. Residuals for log10GE appear approximately normal, so a **Linear Mixed Model (LMM)** with Gaussian error is suitable. So, If future analysis shows strong skewness or heteroscedasticity, a **Tweedie GLMM** will be considered to model zero-inflated or right-skewed data. Thus, I will proceed using a **Gaussian LMM** framework with fixed effects for *Vaccine_Group*, *Route*, and *Virus*, and random effects for *Timepoint* and *Bird_ID*.
