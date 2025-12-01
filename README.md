@@ -19,7 +19,7 @@ For future analyses, if residual skew persists, a **Tweedie GLMM** will be consi
 
 This repository contains the final data analysis for my qPCR study evaluating tracheal viral load in broiler chickens vaccinated with a bovine adenovirus–vectored avian influenza vaccine (BAds-AIV). Birds were challenged with H5N1 or H7N2 and sampled at three post-challenge timepoints (DPC2, DPC4, DPC6).
 
-## Files Included
+### Files Included
 Final Semester Project-Data-Analysis-ENT6907.qmd  
 Quarto document containing all R code for data import, wrangling, visualization, model fitting, and diagnostics.
 
