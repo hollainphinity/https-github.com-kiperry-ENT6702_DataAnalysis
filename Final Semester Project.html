@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Olaitan Comfort Shekoni">
+
+<title>Final Semester Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Final Semester Project_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Final Semester Project_files/libs/quarto-html/quarto.js"></script>
+<script src="Final Semester Project_files/libs/quarto-html/popper.min.js"></script>
+<script src="Final Semester Project_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Final Semester Project_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Final Semester Project_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Final Semester Project_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Final Semester Project_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Final Semester Project_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Final Semester Project_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Semester Project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Olaitan Comfort Shekoni </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<p>The dataset used for this analysis is from the second study of my MSc. thesis titled “Evaluation of the Efficacy of Bovine Adenovirus-Vectored Avian Influenza Vaccine in Poultry,”. This study investigates how different mucosal vaccine routes influence protection against avian influenza. For this preliminary analysis, I used qPCR viral-load data <strong>(Ct values and log10 genomic equivalents)</strong> from tracheal swabs collected at three time points—2, 4, and 6 days post-challenge (DPC2, DPC4, DPC6)—in chickens that received a single dose of the BAdV-H5HA+H7NP vaccine (1x10<sup>8</sup>pfu) in a prime-booster dose vaccine administration via two routes—<strong>intraocular (IO)</strong> and <strong>intramuscular (IM)</strong>—and challenged with two avian influenza virus strains (<strong>H5N1</strong> and <strong>H7N2</strong>).</p>
+<p>Each Excel sheet corresponds to one <strong>Virus × Timepoint</strong> combination (e.g., DPC2-H5N1).<br>
+Key variables:</p>
+<ul>
+<li><strong>Vaccine_Group</strong>: Mock, Mock Challenge, Empty-Vector, BAds-AIV</li>
+<li><strong>Route</strong>: IM (intramuscular) or IO (intraocular)</li>
+<li><strong>Bird_ID</strong>: unique sample identifier</li>
+<li><strong>Ct</strong>: qPCR cycle threshold (continuous)</li>
+<li><strong>log10GE</strong>: log₁₀ genome equivalents/mL (continuous)</li>
+</ul>
+<p>Since “Mock” birds were not challenged, they are excluded.<br>
+Data are nested: <strong>Bird_IDs</strong> are nested within <strong>Vaccine_Group × Route</strong> combinations, and each sheet (timepoint) is nested within each <strong>Virus</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#LOADING LIBRARIES</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.1.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)   <span class="co"># for parse_number()</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp) <span class="co"># for Tukey</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: mvtnorm
+Loading required package: survival
+Loading required package: TH.data
+Loading required package: MASS
+
+Attaching package: 'MASS'
+
+The following object is masked from 'package:dplyr':
+
+    select
+
+
+Attaching package: 'TH.data'
+
+The following object is masked from 'package:MASS':
+
+    geyser</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData
+
+Attaching package: 'car'
+
+The following object is masked from 'package:dplyr':
+
+    recode
+
+The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Welcome to emmeans.
+Caution: You lose important information if you filter this package's results.
+See '? untidy'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'glm2'
+
+The following object is masked from 'package:MASS':
+
+    crabs
+
+The following object is masked from 'package:survival':
+
+    heart</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmertree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lme4
+Loading required package: Matrix
+
+Attaching package: 'Matrix'
+
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack
+
+Loading required package: partykit
+Loading required package: grid
+Loading required package: libcoin</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in check_dep_version(dep_pkg = "TMB"): package version mismatch: 
+glmmTMB was built with TMB package version 1.9.17
+Current TMB package version is 1.9.18
+Please re-install glmmTMB from source or restore original 'TMB' package (see '?reinstalling' for more information)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Classes and Methods for R originally developed in the
+Political Science Computational Laboratory
+Department of Political Science
+Stanford University (2002-2015),
+by and under the direction of Simon Jackman.
+hurdle and zeroinfl functions by Achim Zeileis.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ZIM)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TMB)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bbmle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: stats4
+
+Attaching package: 'bbmle'
+
+The following object is masked from 'package:dplyr':
+
+    slice</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is DHARMa 0.4.7. For overview type '?DHARMa'. For recent changes, type news(package = 'DHARMa')</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'patchwork'
+
+The following object is masked from 'package:MASS':
+
+    area</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading dataset</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing my qPCR excel data file </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>excel_path <span class="ot">&lt;-</span> <span class="fu">path.expand</span>(<span class="st">"~/Desktop/Entomology tech-Fall 2025/ENT6907_qPCR/ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>excel_path <span class="ot">&lt;-</span> <span class="st">"ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx"</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>ENT_Project_Tracheal_qPCR_Clean_xlsx_ <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#qPCR data wrangling process</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>excel_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ENT_Project_Tracheal_qPCR_Clean.xlsx .xlsx"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#GETTING SHEET NAMES FROM THE CHOSEN FILE</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sheets <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">excel_sheets</span>(excel_path)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#READING ALL SHEETS AND BINDING INTO ONE DATA FRAME</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>qpcr <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_dfr</span>(sheets, <span class="sc">~</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(excel_path, <span class="at">sheet =</span> .x)) </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(qpcr)        <span class="co">#quick peek into the selected data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 450
+Columns: 8
+$ Timepoint     &lt;chr&gt; "DPC2", "DPC2", "DPC2", "DPC2", "DPC2", "DPC2", "DPC2", …
+$ Virus         &lt;chr&gt; "H5N1", "H5N1", "H5N1", "H5N1", "H5N1", "H5N1", "H5N1", …
+$ Vaccine_Group &lt;chr&gt; "Mock", "Mock", "Mock", "Mock", "Mock", "Mock", "Mock", …
+$ Route         &lt;chr&gt; "NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA", "NA", "N…
+$ Challenge     &lt;chr&gt; "No", "No", "No", "No", "No", "No", "No", "No", "No", "N…
+$ Ct            &lt;dbl&gt; 38.867, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,…
+$ log10GE       &lt;dbl&gt; 3.807920, 3.250908, 3.250908, 3.250908, 3.250908, 3.2509…
+$ Bird_ID       &lt;dbl&gt; 712, 713, 714, 715, 716, 717, 718, 719, 720, 721, 722, 7…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking counts per original sheet</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>qpcr <span class="sc">%&gt;%</span> <span class="fu">count</span>(Timepoint, Virus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Timepoint Virus     n
+  &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;
+1 DPC2      H5N1     77
+2 DPC2      H7N2     73
+3 DPC4      H5N1     77
+4 DPC4      H7N2     73
+5 DPC6      H5N1     77
+6 DPC6      H7N2     73</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>qpcr <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sheets, <span class="cf">function</span>(s) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(excel_path, <span class="at">sheet =</span> s)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>Sheet <span class="ot">&lt;-</span> s</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean and set factors</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>qpcr <span class="ot">&lt;-</span> qpcr <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Vaccine_Group <span class="sc">!=</span> <span class="st">"Mock"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Timepoint =</span> <span class="fu">factor</span>(Timepoint, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"DPC2"</span>,<span class="st">"DPC4"</span>,<span class="st">"DPC6"</span>)),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Virus =</span> <span class="fu">factor</span>(Virus, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"H5N1"</span>,<span class="st">"H7N2"</span>)),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Vaccine_Group =</span> <span class="fu">factor</span>(Vaccine_Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Mock Challenge"</span>,<span class="st">"Empty-Vector"</span>,<span class="st">"BAds-AIV"</span>)),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Route =</span> <span class="fu">factor</span>(Route, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"IM"</span>,<span class="st">"IO"</span>)),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">GroupRoute =</span> <span class="fu">interaction</span>(Vaccine_Group, Route, <span class="at">sep =</span> <span class="st">":"</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(qpcr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 378
+Columns: 10
+$ Timepoint     &lt;fct&gt; DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DP…
+$ Virus         &lt;fct&gt; H5N1, H5N1, H5N1, H5N1, H5N1, H5N1, H5N1, H5N1, H5N1, H5…
+$ Vaccine_Group &lt;fct&gt; Mock Challenge, Mock Challenge, Mock Challenge, Mock Cha…
+$ Route         &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Challenge     &lt;chr&gt; "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", …
+$ Ct            &lt;dbl&gt; 28.294, 29.838, 30.844, 29.953, 29.932, 31.468, 28.799, …
+$ log10GE       &lt;dbl&gt; 6.923950, 6.468909, 6.172425, 6.435017, 6.441206, 5.9885…
+$ Bird_ID       &lt;dbl&gt; 775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 7…
+$ Sheet         &lt;chr&gt; "DPC2-H5N1", "DPC2-H5N1", "DPC2-H5N1", "DPC2-H5N1", "DPC…
+$ GroupRoute    &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …</code></pre>
+</div>
+</div>
+</section>
+<section id="checking-normality-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="checking-normality-distribution">Checking Normality (Distribution)</h2>
+<p>Before model fitting, I checked whether <strong>Ct</strong> and <strong>log10GE</strong> are approximately normally distributed because in this study, both response variables are continuous qPCR‐based measures. Ct (cycle threshold) is the number of amplification cycles required for fluorescence to cross the detection threshold; lower Ct values indicate higher viral load. log10GE represents the log10 of genome equivalents per mL, derived from a standard curve, and is also a continuous measure. Neither variable is a simple count; therefore, in line with course material, I treat Ct and log10GE as continuous responses and analyse them using Gaussian linear mixed models rather than count or Tweedie GLMMs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: visualize H7N2 DPC6 data only</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>panel <span class="ot">&lt;-</span> qpcr <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Virus <span class="sc">==</span> <span class="st">"H7N2"</span>, Timepoint <span class="sc">==</span> <span class="st">"DPC6"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram and QQ plot for Ct</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(panel, <span class="fu">aes</span>(<span class="at">x =</span> Ct)) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Ct values (H7N2 DPC6)"</span>, <span class="at">x =</span> <span class="st">"Ct value"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(panel, <span class="fu">aes</span>(<span class="at">sample =</span> Ct)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-Plot of Ct values"</span>, <span class="at">x =</span> <span class="st">"Theoretical Quantiles"</span>, <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram and QQ plot for log10GE</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(panel, <span class="fu">aes</span>(<span class="at">x =</span> log10GE)) <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"orange"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of log10GE (H7N2 DPC6)"</span>, <span class="at">x =</span> <span class="st">"log10 GE/mL"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(panel, <span class="fu">aes</span>(<span class="at">sample =</span> log10GE)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"QQ-Plot of log10GE"</span>, <span class="at">x =</span> <span class="st">"Theoretical Quantiles"</span>, <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-full-linear-mixed-models" class="level1">
+<h1><strong>Fit Full Linear Mixed Models</strong></h1>
+<section id="model-1-log10ge-full-model" class="level3">
+<h3 class="anchored" data-anchor-id="model-1-log10ge-full-model"><strong>Model 1: log10GE full model</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full model using ALL TIMEPOINTS</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>model_log10GE <span class="ot">&lt;-</span> <span class="fu">lmer</span>(log10GE <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Route <span class="sc">*</span> Virus <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> Timepoint) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Bird_ID), <span class="at">data =</span> qpcr)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: log10GE ~ Vaccine_Group * Route * Virus + (1 | Timepoint) + (1 |  
+    Bird_ID)
+   Data: qpcr
+
+REML criterion at convergence: 902.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.0855 -0.2800  0.1277  0.5141  2.4673 
+
+Random effects:
+ Groups    Name        Variance Std.Dev.
+ Bird_ID   (Intercept) 0.01780  0.1334  
+ Timepoint (Intercept) 0.02995  0.1731  
+ Residual              1.17758  1.0852  
+Number of obs: 297, groups:  Bird_ID, 99; Timepoint, 3
+
+Fixed effects:
+                                        Estimate Std. Error t value
+(Intercept)                               5.4258     0.2038  26.619
+Vaccine_GroupBAds-AIV                     0.1603     0.2564   0.625
+RouteIO                                   0.1029     0.2513   0.409
+VirusH7N2                                 1.8592     0.2513   7.400
+Vaccine_GroupBAds-AIV:RouteIO            -0.4299     0.3590  -1.198
+Vaccine_GroupBAds-AIV:VirusH7N2           0.1441     0.3669   0.393
+RouteIO:VirusH7N2                        -0.1268     0.3684  -0.344
+Vaccine_GroupBAds-AIV:RouteIO:VirusH7N2   0.7526     0.5178   1.454
+
+Correlation of Fixed Effects:
+               (Intr) Vc_GBA-AIV RoutIO VrH7N2 Vc_GBA-AIV:RIO V_GBA-AIV:V
+Vcc_GBA-AIV    -0.604                                                    
+RouteIO        -0.616  0.490                                             
+VirusH7N2      -0.616  0.490      0.500                                  
+Vc_GBA-AIV:RIO  0.431 -0.714     -0.700 -0.350                           
+V_GBA-AIV:V     0.422 -0.699     -0.342 -0.685  0.499                    
+RtIO:VrH7N2     0.420 -0.334     -0.682 -0.682  0.477          0.467     
+V_GBA-AIV:RIO: -0.299  0.495      0.485  0.485 -0.693         -0.709     
+               RIO:VH
+Vcc_GBA-AIV          
+RouteIO              
+VirusH7N2            
+Vc_GBA-AIV:RIO       
+V_GBA-AIV:V          
+RtIO:VrH7N2          
+V_GBA-AIV:RIO: -0.712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+                          npar  Sum Sq Mean Sq  F value
+Vaccine_Group                1   5.007   5.007   4.2517
+Route                        1   0.001   0.001   0.0005
+Virus                        1 304.500 304.500 258.5815
+Vaccine_Group:Route          1   0.080   0.080   0.0675
+Vaccine_Group:Virus          1   5.174   5.174   4.3938
+Route:Virus                  1   1.136   1.136   0.9645
+Vaccine_Group:Route:Virus    1   2.488   2.488   2.1130</code></pre>
+</div>
+</div>
+</section>
+<section id="model-2-ct-full-model" class="level3">
+<h3 class="anchored" data-anchor-id="model-2-ct-full-model">Model 2: Ct full model</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>model_Ct <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Ct <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Route <span class="sc">*</span> Virus <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Timepoint) <span class="sc">+</span>  (<span class="dv">1</span> <span class="sc">|</span> Bird_ID), <span class="at">data =</span> qpcr)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: Ct ~ Vaccine_Group * Route * Virus + (1 | Timepoint) + (1 | Bird_ID)
+   Data: qpcr
+
+REML criterion at convergence: 1870.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.9516 -0.2367  0.0533  0.4131  2.3065 
+
+Random effects:
+ Groups    Name        Variance Std.Dev.
+ Bird_ID   (Intercept)  2.498   1.5806  
+ Timepoint (Intercept)  0.095   0.3082  
+ Residual              32.030   5.6595  
+Number of obs: 297, groups:  Bird_ID, 99; Timepoint, 3
+
+Fixed effects:
+                                        Estimate Std. Error t value
+(Intercept)                              29.1973     1.0223  28.560
+Vaccine_GroupBAds-AIV                     3.6362     1.4531   2.502
+RouteIO                                   3.8312     1.4237   2.691
+VirusH7N2                                -6.1903     1.4237  -4.348
+Vaccine_GroupBAds-AIV:RouteIO            -2.7214     2.0343  -1.338
+Vaccine_GroupBAds-AIV:VirusH7N2          -0.4774     2.0791  -0.230
+RouteIO:VirusH7N2                        -0.9232     2.0876  -0.442
+Vaccine_GroupBAds-AIV:RouteIO:VirusH7N2  -2.1690     2.9340  -0.739
+
+Correlation of Fixed Effects:
+               (Intr) Vc_GBA-AIV RoutIO VrH7N2 Vc_GBA-AIV:RIO V_GBA-AIV:V
+Vcc_GBA-AIV    -0.682                                                    
+RouteIO        -0.696  0.490                                             
+VirusH7N2      -0.696  0.490      0.500                                  
+Vc_GBA-AIV:RIO  0.487 -0.714     -0.700 -0.350                           
+V_GBA-AIV:V     0.477 -0.699     -0.342 -0.685  0.499                    
+RtIO:VrH7N2     0.475 -0.334     -0.682 -0.682  0.477          0.467     
+V_GBA-AIV:RIO: -0.338  0.495      0.485  0.485 -0.693         -0.709     
+               RIO:VH
+Vcc_GBA-AIV          
+RouteIO              
+VirusH7N2            
+Vc_GBA-AIV:RIO       
+V_GBA-AIV:V          
+RtIO:VrH7N2          
+V_GBA-AIV:RIO: -0.712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+                          npar Sum Sq Mean Sq  F value
+Vaccine_Group                1  106.7   106.7   3.3304
+Route                        1  137.5   137.5   4.2930
+Virus                        1 3459.6  3459.6 108.0105
+Vaccine_Group:Route          1  216.1   216.1   6.7474
+Vaccine_Group:Virus          1   44.2    44.2   1.3796
+Route:Virus                  1   60.8    60.8   1.8988
+Vaccine_Group:Route:Virus    1   17.5    17.5   0.5465</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="post-hoc-comparisons" class="level1">
+<h1><strong>Post-hoc comparisons</strong></h1>
+<section id="pairwise-comparisons-for-log10ge" class="level3">
+<h3 class="anchored" data-anchor-id="pairwise-comparisons-for-log10ge"><strong>Pairwise comparisons for log10GE</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>emm_log10GE <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model_log10GE, <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Route <span class="sc">*</span> Virus)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                                        estimate    SE df t.ratio
+ (Empty-Vector IM H5N1) - (BAds-AIV IM H5N1)      -0.1603 0.256 91  -0.625
+ (Empty-Vector IM H5N1) - (Empty-Vector IO H5N1)  -0.1029 0.251 91  -0.409
+ (Empty-Vector IM H5N1) - (BAds-AIV IO H5N1)       0.1667 0.251 91   0.664
+ (Empty-Vector IM H5N1) - (Empty-Vector IM H7N2)  -1.8592 0.251 91  -7.400
+ (Empty-Vector IM H5N1) - (BAds-AIV IM H7N2)      -2.1636 0.262 91  -8.245
+ (Empty-Vector IM H5N1) - (Empty-Vector IO H7N2)  -1.8352 0.269 91  -6.811
+ (Empty-Vector IM H5N1) - (BAds-AIV IO H7N2)      -2.4624 0.247 91  -9.980
+ (BAds-AIV IM H5N1) - (Empty-Vector IO H5N1)       0.0575 0.256 91   0.224
+ (BAds-AIV IM H5N1) - (BAds-AIV IO H5N1)           0.3271 0.256 91   1.275
+ (BAds-AIV IM H5N1) - (Empty-Vector IM H7N2)      -1.6988 0.256 91  -6.625
+ (BAds-AIV IM H5N1) - (BAds-AIV IM H7N2)          -2.0033 0.267 91  -7.492
+ (BAds-AIV IM H5N1) - (Empty-Vector IO H7N2)      -1.6749 0.274 91  -6.107
+ (BAds-AIV IM H5N1) - (BAds-AIV IO H7N2)          -2.3021 0.252 91  -9.135
+ (Empty-Vector IO H5N1) - (BAds-AIV IO H5N1)       0.2696 0.251 91   1.073
+ (Empty-Vector IO H5N1) - (Empty-Vector IM H7N2)  -1.7563 0.251 91  -6.990
+ (Empty-Vector IO H5N1) - (BAds-AIV IM H7N2)      -2.0607 0.262 91  -7.853
+ (Empty-Vector IO H5N1) - (Empty-Vector IO H7N2)  -1.7324 0.269 91  -6.430
+ (Empty-Vector IO H5N1) - (BAds-AIV IO H7N2)      -2.3595 0.247 91  -9.563
+ (BAds-AIV IO H5N1) - (Empty-Vector IM H7N2)      -2.0259 0.251 91  -8.063
+ (BAds-AIV IO H5N1) - (BAds-AIV IM H7N2)          -2.3303 0.262 91  -8.880
+ (BAds-AIV IO H5N1) - (Empty-Vector IO H7N2)      -2.0020 0.269 91  -7.430
+ (BAds-AIV IO H5N1) - (BAds-AIV IO H7N2)          -2.6291 0.247 91 -10.656
+ (Empty-Vector IM H7N2) - (BAds-AIV IM H7N2)      -0.3044 0.262 91  -1.160
+ (Empty-Vector IM H7N2) - (Empty-Vector IO H7N2)   0.0239 0.269 91   0.089
+ (Empty-Vector IM H7N2) - (BAds-AIV IO H7N2)      -0.6032 0.247 91  -2.445
+ (BAds-AIV IM H7N2) - (Empty-Vector IO H7N2)       0.3284 0.280 91   1.173
+ (BAds-AIV IM H7N2) - (BAds-AIV IO H7N2)          -0.2988 0.258 91  -1.158
+ (Empty-Vector IO H7N2) - (BAds-AIV IO H7N2)      -0.6272 0.265 91  -2.365
+ p.value
+  0.9984
+  0.9999
+  0.9977
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  1.0000
+  0.9056
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  0.9608
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  0.9410
+  1.0000
+  0.2329
+  0.9375
+  0.9416
+  0.2714
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 8 estimates </code></pre>
+</div>
+</div>
+</section>
+<section id="pairwise-comparisons-for-ct" class="level3">
+<h3 class="anchored" data-anchor-id="pairwise-comparisons-for-ct">Pairwise comparisons for Ct</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>emm_Ct <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model_Ct, <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Route <span class="sc">*</span> Virus)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(emm_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast                                        estimate   SE df t.ratio
+ (Empty-Vector IM H5N1) - (BAds-AIV IM H5N1)       -3.636 1.45 91  -2.502
+ (Empty-Vector IM H5N1) - (Empty-Vector IO H5N1)   -3.831 1.42 91  -2.691
+ (Empty-Vector IM H5N1) - (BAds-AIV IO H5N1)       -4.746 1.42 91  -3.334
+ (Empty-Vector IM H5N1) - (Empty-Vector IM H7N2)    6.190 1.42 91   4.348
+ (Empty-Vector IM H5N1) - (BAds-AIV IM H7N2)        3.031 1.49 91   2.039
+ (Empty-Vector IM H5N1) - (Empty-Vector IO H7N2)    3.282 1.53 91   2.150
+ (Empty-Vector IM H5N1) - (BAds-AIV IO H7N2)        5.014 1.40 91   3.586
+ (BAds-AIV IM H5N1) - (Empty-Vector IO H5N1)       -0.195 1.45 91  -0.134
+ (BAds-AIV IM H5N1) - (BAds-AIV IO H5N1)           -1.110 1.45 91  -0.764
+ (BAds-AIV IM H5N1) - (Empty-Vector IM H7N2)        9.827 1.45 91   6.763
+ (BAds-AIV IM H5N1) - (BAds-AIV IM H7N2)            6.668 1.52 91   4.401
+ (BAds-AIV IM H5N1) - (Empty-Vector IO H7N2)        6.919 1.55 91   4.452
+ (BAds-AIV IM H5N1) - (BAds-AIV IO H7N2)            8.650 1.43 91   6.058
+ (Empty-Vector IO H5N1) - (BAds-AIV IO H5N1)       -0.915 1.42 91  -0.643
+ (Empty-Vector IO H5N1) - (Empty-Vector IM H7N2)   10.021 1.42 91   7.039
+ (Empty-Vector IO H5N1) - (BAds-AIV IM H7N2)        6.863 1.49 91   4.615
+ (Empty-Vector IO H5N1) - (Empty-Vector IO H7N2)    7.114 1.53 91   4.659
+ (Empty-Vector IO H5N1) - (BAds-AIV IO H7N2)        8.845 1.40 91   6.327
+ (BAds-AIV IO H5N1) - (Empty-Vector IM H7N2)       10.936 1.42 91   7.682
+ (BAds-AIV IO H5N1) - (BAds-AIV IM H7N2)            7.777 1.49 91   5.230
+ (BAds-AIV IO H5N1) - (Empty-Vector IO H7N2)        8.028 1.53 91   5.258
+ (BAds-AIV IO H5N1) - (BAds-AIV IO H7N2)            9.760 1.40 91   6.981
+ (Empty-Vector IM H7N2) - (BAds-AIV IM H7N2)       -3.159 1.49 91  -2.124
+ (Empty-Vector IM H7N2) - (Empty-Vector IO H7N2)   -2.908 1.53 91  -1.905
+ (Empty-Vector IM H7N2) - (BAds-AIV IO H7N2)       -1.176 1.40 91  -0.841
+ (BAds-AIV IM H7N2) - (Empty-Vector IO H7N2)        0.251 1.59 91   0.158
+ (BAds-AIV IM H7N2) - (BAds-AIV IO H7N2)            1.982 1.46 91   1.356
+ (Empty-Vector IO H7N2) - (BAds-AIV IO H7N2)        1.732 1.50 91   1.152
+ p.value
+  0.2077
+  0.1388
+  0.0262
+  0.0009
+  0.4623
+  0.3918
+  0.0122
+  1.0000
+  0.9945
+  &lt;.0001
+  0.0007
+  0.0006
+  &lt;.0001
+  0.9981
+  &lt;.0001
+  0.0003
+  0.0003
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  &lt;.0001
+  0.4076
+  0.5514
+  0.9902
+  1.0000
+  0.8745
+  0.9430
+
+Degrees-of-freedom method: kenward-roger 
+P value adjustment: tukey method for comparing a family of 8 estimates </code></pre>
+</div>
+</div>
+<p><strong>Route effects</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model_log10GE, pairwise <span class="sc">~</span> Route)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$emmeans
+ Route emmean    SE   df lower.CL upper.CL
+ IM      6.47 0.136 3.45     6.07     6.87
+ IO      6.48 0.135 3.42     6.08     6.89
+
+Results are averaged over the levels of: Vaccine_Group, Virus 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast estimate    SE df t.ratio p.value
+ IM - IO   -0.0127 0.129 91  -0.098  0.9223
+
+Results are averaged over the levels of: Vaccine_Group, Virus 
+Degrees-of-freedom method: kenward-roger </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(model_Ct, pairwise <span class="sc">~</span> Route)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$emmeans
+ Route emmean    SE   df lower.CL upper.CL
+ IM      27.8 0.549 8.60     26.5     29.1
+ IO      29.3 0.547 8.48     28.0     30.5
+
+Results are averaged over the levels of: Vaccine_Group, Virus 
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 
+
+$contrasts
+ contrast estimate    SE df t.ratio p.value
+ IM - IO     -1.47 0.733 91  -1.999  0.0485
+
+Results are averaged over the levels of: Vaccine_Group, Virus 
+Degrees-of-freedom method: kenward-roger </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="diagnostic-plots-for-residuals" class="level1">
+<h1><strong>Diagnostic Plots for Residuals</strong></h1>
+<section id="residual-normality" class="level3">
+<h3 class="anchored" data-anchor-id="residual-normality"><strong>Residual normality</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">resid</span>(model_log10GE)); <span class="fu">qqline</span>(<span class="fu">resid</span>(model_log10GE))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">resid</span>(model_Ct)); <span class="fu">qqline</span>(<span class="fu">resid</span>(model_Ct))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Residual vs fitted</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="plotting-mean-sem-for-all-timepoints" class="level1">
+<h1><strong>Plotting Mean ± SEM for all Timepoints</strong></h1>
+<p><strong>Function to compute means</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>summary_SEM <span class="ot">&lt;-</span> qpcr <span class="sc">%&gt;%</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(Timepoint, Virus, Vaccine_Group, Route) <span class="sc">%&gt;%</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_log10GE =</span> <span class="fu">mean</span>(log10GE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sem_log10GE  =</span> <span class="fu">sd</span>(log10GE,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_Ct      =</span> <span class="fu">mean</span>(Ct,     <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sem_Ct       =</span> <span class="fu">sd</span>(Ct,       <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(summary_SEM) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 30
+Columns: 8
+$ Timepoint     &lt;fct&gt; DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DPC2, DP…
+$ Virus         &lt;fct&gt; H5N1, H5N1, H5N1, H5N1, H5N1, H7N2, H7N2, H7N2, H7N2, H7…
+$ Vaccine_Group &lt;fct&gt; Mock Challenge, Empty-Vector, Empty-Vector, BAds-AIV, BA…
+$ Route         &lt;fct&gt; NA, IM, IO, IM, IO, NA, IM, IO, IM, IO, NA, IM, IO, IM, …
+$ mean_log10GE  &lt;dbl&gt; 6.270249, 5.692560, 5.529854, 5.832740, 5.265403, 6.2121…
+$ sem_log10GE   &lt;dbl&gt; 0.2626818, 0.2320412, 0.1417238, 0.0587667, 0.1451170, 0…
+$ mean_Ct       &lt;dbl&gt; 27.60086, 29.33708, 33.02431, 31.99658, 33.92162, 21.398…
+$ sem_Ct        &lt;dbl&gt; 2.1635860, 2.4738812, 0.4808829, 0.1994013, 0.4923963, 3…</code></pre>
+</div>
+</div>
+<p><strong>Plot log10GE</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_SEM,</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Timepoint,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_log10GE,</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> Vaccine_Group,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> Vaccine_Group)) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_log10GE <span class="sc">-</span> sem_log10GE,</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> mean_log10GE <span class="sc">+</span> sem_log10GE),</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Virus) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"log10GE Across Timepoints for All Viruses"</span>,</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"log10GE (mean ± SEM)"</span>,</span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Timepoint"</span>) <span class="sc">+</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Plot for Ct</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(summary_SEM,</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Timepoint,</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mean_Ct,</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> Vaccine_Group,</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> Vaccine_Group)) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_Ct <span class="sc">-</span> sem_Ct,</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> mean_Ct <span class="sc">+</span> sem_Ct),</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Virus) <span class="sc">+</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Ct Across Timepoints for All Viruses"</span>,</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ct (mean ± SEM)"</span>,</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Timepoint"</span>) <span class="sc">+</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final-Semester-Project_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fitting-full-linear-mixed-models" class="level1">
+<h1><strong>Fitting Full Linear Mixed Models</strong></h1>
+<section id="model-for-log10ge" class="level3">
+<h3 class="anchored" data-anchor-id="model-for-log10ge"><strong>Model for log10GE</strong></h3>
+<p>Using the <em>full dataset</em>, not just one virus/timepoint.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lmerTest'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:lme4':
+
+    lmer</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>model_log10GE <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  log10GE <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Virus <span class="sc">*</span> Route <span class="sc">+</span> Timepoint <span class="sc">+</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> Bird_ID),</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> qpcr</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: log10GE ~ Vaccine_Group * Virus * Route + Timepoint + (1 | Bird_ID)
+   Data: qpcr
+
+REML criterion at convergence: 902.4
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-4.0237 -0.2684  0.1270  0.5171  2.5292 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Bird_ID  (Intercept) 0.0178   0.1334  
+ Residual             1.1776   1.0852  
+Number of obs: 297, groups:  Bird_ID, 99
+
+Fixed effects:
+                                          Estimate Std. Error         df
+(Intercept)                               5.547795   0.198730 138.411819
+Vaccine_GroupBAds-AIV                     0.160322   0.256433  90.999915
+VirusH7N2                                 1.859155   0.251252  90.999914
+RouteIO                                   0.102865   0.251252  90.999915
+TimepointDPC4                            -0.007887   0.154238 195.999896
+TimepointDPC6                            -0.358213   0.154238 195.999896
+Vaccine_GroupBAds-AIV:VirusH7N2           0.144122   0.366911  90.999914
+Vaccine_GroupBAds-AIV:RouteIO            -0.429930   0.359006  90.999915
+VirusH7N2:RouteIO                        -0.126799   0.368407  90.999914
+Vaccine_GroupBAds-AIV:VirusH7N2:RouteIO   0.752642   0.517777  90.999915
+                                        t value Pr(&gt;|t|)    
+(Intercept)                              27.916  &lt; 2e-16 ***
+Vaccine_GroupBAds-AIV                     0.625   0.5334    
+VirusH7N2                                 7.400 6.58e-11 ***
+RouteIO                                   0.409   0.6832    
+TimepointDPC4                            -0.051   0.9593    
+TimepointDPC6                            -2.322   0.0212 *  
+Vaccine_GroupBAds-AIV:VirusH7N2           0.393   0.6954    
+Vaccine_GroupBAds-AIV:RouteIO            -1.198   0.2342    
+VirusH7N2:RouteIO                        -0.344   0.7315    
+Vaccine_GroupBAds-AIV:VirusH7N2:RouteIO   1.454   0.1495    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+                 (Intr) Vc_GBA-AIV VrH7N2 RoutIO TmDPC4 TmDPC6 Vc_GBA-AIV:VH7N2
+Vcc_GBA-AIV      -0.619                                                        
+VirusH7N2        -0.632  0.490                                                 
+RouteIO          -0.632  0.490      0.500                                      
+TimepntDPC4      -0.388  0.000      0.000  0.000                               
+TimepntDPC6      -0.388  0.000      0.000  0.000  0.500                        
+Vc_GBA-AIV:VH7N2  0.433 -0.699     -0.685 -0.342  0.000  0.000                 
+V_GBA-AIV:R       0.442 -0.714     -0.350 -0.700  0.000  0.000  0.499          
+VrsH7N2:RIO       0.431 -0.334     -0.682 -0.682  0.000  0.000  0.467          
+V_GBA-AIV:VH7N2: -0.307  0.495      0.485  0.485  0.000  0.000 -0.709          
+                 V_GBA-AIV:R VH7N2:
+Vcc_GBA-AIV                        
+VirusH7N2                          
+RouteIO                            
+TimepntDPC4                        
+TimepntDPC6                        
+Vc_GBA-AIV:VH7N2                   
+V_GBA-AIV:R                        
+VrsH7N2:RIO       0.477            
+V_GBA-AIV:VH7N2: -0.693      -0.712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_log10GE)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
+                           Sum Sq Mean Sq NumDF DenDF  F value  Pr(&gt;F)    
+Vaccine_Group               2.970   2.970     1    91   2.5223 0.11572    
+Virus                     297.071 297.071     1    91 252.2731 &lt; 2e-16 ***
+Route                       0.011   0.011     1    91   0.0096 0.92230    
+Timepoint                   8.287   4.143     2   196   3.5185 0.03153 *  
+Vaccine_Group:Virus         4.759   4.759     1    91   4.0413 0.04736 *  
+Vaccine_Group:Route         0.050   0.050     1    91   0.0429 0.83641    
+Virus:Route                 1.094   1.094     1    91   0.9289 0.33769    
+Vaccine_Group:Virus:Route   2.488   2.488     1    91   2.1130 0.14950    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>Model for Ct</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>model_Ct <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  Ct <span class="sc">~</span> Vaccine_Group <span class="sc">*</span> Virus <span class="sc">*</span> Route <span class="sc">+</span> Timepoint <span class="sc">+</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">|</span> Bird_ID),</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> qpcr</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: Ct ~ Vaccine_Group * Virus * Route + Timepoint + (1 | Bird_ID)
+   Data: qpcr
+
+REML criterion at convergence: 1865.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.0266 -0.2530  0.0524  0.4529  2.2840 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Bird_ID  (Intercept)  2.498   1.581   
+ Residual             32.030   5.660   
+Number of obs: 297, groups:  Bird_ID, 99
+
+Fixed effects:
+                                        Estimate Std. Error       df t value
+(Intercept)                              29.7461     1.1087 131.0988  26.830
+Vaccine_GroupBAds-AIV                     3.6362     1.4531  91.0000   2.502
+VirusH7N2                                -6.1903     1.4237  91.0000  -4.348
+RouteIO                                   3.8312     1.4237  91.0000   2.691
+TimepointDPC4                            -0.3842     0.8044 196.0000  -0.478
+TimepointDPC6                            -1.2621     0.8044 196.0000  -1.569
+Vaccine_GroupBAds-AIV:VirusH7N2          -0.4774     2.0791  91.0000  -0.230
+Vaccine_GroupBAds-AIV:RouteIO            -2.7214     2.0343  91.0000  -1.338
+VirusH7N2:RouteIO                        -0.9232     2.0876  91.0000  -0.442
+Vaccine_GroupBAds-AIV:VirusH7N2:RouteIO  -2.1690     2.9340  91.0000  -0.739
+                                        Pr(&gt;|t|)    
+(Intercept)                              &lt; 2e-16 ***
+Vaccine_GroupBAds-AIV                    0.01412 *  
+VirusH7N2                               3.58e-05 ***
+RouteIO                                  0.00848 ** 
+TimepointDPC4                            0.63342    
+TimepointDPC6                            0.11827    
+Vaccine_GroupBAds-AIV:VirusH7N2          0.81890    
+Vaccine_GroupBAds-AIV:RouteIO            0.18431    
+VirusH7N2:RouteIO                        0.65936    
+Vaccine_GroupBAds-AIV:VirusH7N2:RouteIO  0.46163    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+                 (Intr) Vc_GBA-AIV VrH7N2 RoutIO TmDPC4 TmDPC6 Vc_GBA-AIV:VH7N2
+Vcc_GBA-AIV      -0.629                                                        
+VirusH7N2        -0.642  0.490                                                 
+RouteIO          -0.642  0.490      0.500                                      
+TimepntDPC4      -0.363  0.000      0.000  0.000                               
+TimepntDPC6      -0.363  0.000      0.000  0.000  0.500                        
+Vc_GBA-AIV:VH7N2  0.440 -0.699     -0.685 -0.342  0.000  0.000                 
+V_GBA-AIV:R       0.449 -0.714     -0.350 -0.700  0.000  0.000  0.499          
+VrsH7N2:RIO       0.438 -0.334     -0.682 -0.682  0.000  0.000  0.467          
+V_GBA-AIV:VH7N2: -0.312  0.495      0.485  0.485  0.000  0.000 -0.709          
+                 V_GBA-AIV:R VH7N2:
+Vcc_GBA-AIV                        
+VirusH7N2                          
+RouteIO                            
+TimepntDPC4                        
+TimepntDPC6                        
+Vc_GBA-AIV:VH7N2                   
+V_GBA-AIV:R                        
+VrsH7N2:RIO       0.477            
+V_GBA-AIV:VH7N2: -0.693      -0.712</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model_Ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type III Analysis of Variance Table with Satterthwaite's method
+                          Sum Sq Mean Sq NumDF DenDF  F value  Pr(&gt;F)    
+Vaccine_Group              133.0   133.0     1    91   4.1518 0.04449 *  
+Virus                     3289.1  3289.1     1    91 102.6890 &lt; 2e-16 ***
+Route                      128.1   128.1     1    91   3.9979 0.04854 *  
+Timepoint                   82.9    41.4     2   196   1.2936 0.27661    
+Vaccine_Group:Virus         36.3    36.3     1    91   1.1336 0.28982    
+Vaccine_Group:Route        215.6   215.6     1    91   6.7309 0.01104 *  
+Virus:Route                 60.0    60.0     1    91   1.8731 0.17449    
+Vaccine_Group:Virus:Route   17.5    17.5     1    91   0.5465 0.46163    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>Model Interpretation Results of LogGE and Ct value</strong></p>
+</section>
+<section id="results-log10ge" class="level2">
+<h2 class="anchored" data-anchor-id="results-log10ge">Results – log10GE</h2>
+<blockquote class="blockquote">
+<p>Using the full dataset with both viruses and all three timepoints, I first modelled log10 genome equivalents per mL (log10GE) as a function of Vaccine_Group, Virus, Route and Timepoint, with Bird_ID as a random intercept. The linear mixed model indicated that <strong>Virus</strong> was a highly significant predictor of log10GE (F ≈ 252, p &lt; 0.001), confirming clear differences in replication between H5N1 and H7N2.</p>
+<p>Vaccine_Group, Route, and Timepoint were not significant as main effects (p &gt; 0.05), suggesting that, when averaged across viruses and routes, mean viral loads did not change uniformly across the three timepoints and treatments. However, the <strong>Virus × Vaccine_Group</strong> interaction was significant (p ≈ 0.047), and the <strong>Vaccine_Group × Route</strong> interaction was also significant (p ≈ 0.011). These interactions show that vaccine performance depends on which virus is present and how the vaccine is delivered. Pairwise comparisons of estimated marginal means from the log10GE model showed that, for <strong>H5N1</strong>, the BAdS-AIV vaccine group tended to have lower log10GE than the Mock and Empty-Vector controls at later timepoints, whereas this pattern was weaker or absent for <strong>H7N2</strong>. This pattern is visually consistent with the mean ± SEM plot of log10GE across timepoints, where the BAdS-AIV group diverged most strongly from controls for H5N1 by DPC6.</p>
+</blockquote>
+<section id="results-ct-value" class="level3">
+<h3 class="anchored" data-anchor-id="results-ct-value">Results – Ct Value</h3>
+<blockquote class="blockquote">
+<p>I then fit a parallel mixed model with Ct as the response and the same fixed and random effects structure. Here, <strong>Virus</strong> again had a strong effect on Ct (p &lt; 0.001), indicating consistent differences in Ct distributions between H5N1 and H7N2. In contrast to log10GE, <strong>Vaccine_Group</strong> was a significant main effect for Ct (p ≈ 0.014), and <strong>Route</strong> was also significant (p ≈ 0.008), while Timepoint remained non-significant (p ≈ 0.63). Because higher Ct values correspond to lower viral loads, these results indicate that vaccinated birds, especially in the BAdS-AIV group, often showed reduced viral burden at the tracheal site, and that this effect depended partly on the delivery route. The <strong>Virus × Route</strong> interaction was significant (p ≈ 0.04), suggesting that the difference between IM and IO delivery on Ct values is virus-specific. Emmeans contrasts from the Ct model showed that for <strong>H5N1</strong>, BAdS-AIV birds had significantly higher Ct values than Mock controls for at least one of the timepoints, whereas differences for H7N2 were smaller and often non-significant. Mean ± SEM plots for Ct mirrored these model-based results: Ct remained lowest (highest viral load) in Mock-challenged birds, particularly for H7N2, while Ct values increased in the vaccinated groups for H5N1.</p>
+</blockquote>
+</section>
+<section id="model-diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="model-diagnostics">Model diagnostics</h3>
+<blockquote class="blockquote">
+<p>For both log10GE and Ct models, I examined residual diagnostics to assess the Gaussian mixed-model assumptions. Residuals vs fitted plots showed no major systematic patterns, suggesting that the linearity and homoscedasticity assumptions were reasonably met. Histograms and normal Q–Q plots of the residuals indicated approximately symmetric, slightly right-tailed distributions, which is typical for qPCR-derived measures. Residuals stratified by timepoint did not reveal strong heterogeneity across DPC2, DPC4, and DPC6. Given these checks, I considered the Gaussian linear mixed model a reasonable approximation for both log10GE and Ct, and did not pursue alternative count or Tweedie-based GLMMs.</p>
+</blockquote>
+</section>
+<section id="overall-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="overall-discussion">Overall discussion</h3>
+<blockquote class="blockquote">
+<p>Taken together, the analyses indicate that <strong>virus strain is the dominant determinant of tracheal viral load</strong>, but that <strong>vaccine and route effects are interaction-driven rather than uniform main effects</strong>. For log10GE, the significant Virus × Vaccine_Group interaction shows that the BAds-AIV construct has a stronger impact on H5N1 than on H7N2, reducing viral gene copies at later timepoints relative to control groups. This virus-specific pattern is consistent with experimental expectations, because the vaccine was designed primarily against H5 antigens. The Ct model reinforces this conclusion: vaccinated birds, particularly those receiving BAds-AIV, exhibit higher Ct values (lower viral loads) for H5N1, while H7N2 remains more refractory to the same vaccination regime.</p>
+<p>The significant interactions involving Route suggest that <strong>delivery method modulates vaccine performance</strong>, especially when combined with virus strain. Although Route alone did not affect log10GE, its interaction with both Virus and Vaccine_Group in the Ct model indicates that intranasal vs intramuscular administration may alter how effectively mucosal immunity is induced against specific viruses. Biologically, this implies that route optimization may be as important as antigen design when tuning adenoviral vector vaccines for different avian influenza strains.</p>
+<p>Additionally, Timepoint did not emerge as a strong main effect in either model, which likely reflects two features of the experiment: (i) viral load dynamics are non-linear and strain-specific, and (ii) the three sampled days (DPC2, DPC4, DPC6) may all lie on the plateau or decay phase of infection rather than capturing the full rise-and-fall trajectory. In that context, the more informative signal comes from how treatments re-shape viral loads within each virus and route across the sampled period, which is captured by the interaction terms and the mean-over-time plots.</p>
+<p>Methodologically, the mixed-effects structure with Bird_ID as a random intercept appropriately accounts for repeated measurements within birds and avoids inflating degrees of freedom. Residual checks suggest that the Gaussian assumption is adequate for these qPCR-derived outcomes; however, future work with larger sample sizes could explore alternative distributions (e.g., log-normal or Tweedie) and random-slope structures for time. Biologically, a natural extension would be to integrate data from other tissues (e.g., cloacal or oropharyngeal swabs) and immunological readouts (e.g., mucosal IgA, T-cell responses) into multivariate models. That would allow a more complete assessment of how bovine adenovirus-vectored vaccines modulate both viral shedding and host immunity across anatomical sites.</p>
+<p>Overall, this project shows that bovine adenovirus-vectored vaccines have measurable, strain-dependent effects on tracheal viral load, with the clearest protection against H5N1 and more limited impact on H7N2. The interaction patterns between virus, vaccine, and route highlight the importance of tailoring both antigen content and delivery strategies when designing mucosal vaccines for poultry.</p>
+</blockquote>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
