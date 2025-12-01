@@ -23,13 +23,13 @@ This repository contains the final data analysis for my qPCR study evaluating tr
 Final Semester Project-Data-Analysis-ENT6907.qmd  
 Quarto document containing all R code for data import, wrangling, visualization, model fitting, and diagnostics.
 
-## Final Semester Project-Data-Analysis-ENT6907.pdf (and `.html`)  
+### Final Semester Project-Data-Analysis-ENT6907.pdf (and `.html`)  
   Rendered report with figures, model results, and interpretation.
 
-# Updated ENT_Project_Tracheal_qPCR_Clean.xlsx**  
+### Updated ENT_Project_Tracheal_qPCR_Clean.xlsx**  
   Clean qPCR dataset with an added `Metadata` sheet describing variables and data structure.
 
-## Summary
+### Summary
 
 The final analysis uses Gaussian linear mixed-effects models for two continuous outcomes:
 
